@@ -8,7 +8,7 @@
 <style>
 
 body{
-font-family:Arial, sans-serif;
+font-family:Arial;
 background:#f6f8f9;
 padding:20px;
 max-width:500px;
@@ -26,7 +26,6 @@ box-shadow:0 2px 8px rgba(0,0,0,0.08);
 h1{
 text-align:center;
 color:#2c7a7b;
-margin-bottom:15px;
 }
 
 .total{
@@ -46,7 +45,6 @@ flex:1;
 padding:10px;
 border:1px solid #ddd;
 border-radius:6px;
-font-size:14px;
 }
 
 .input-row button{
@@ -55,13 +53,7 @@ background:#2c7a7b;
 color:white;
 border:none;
 border-radius:6px;
-font-size:14px;
-white-space:nowrap;
 cursor:pointer;
-}
-
-.input-row button:hover{
-background:#256666;
 }
 
 .entry{
@@ -69,11 +61,6 @@ display:flex;
 justify-content:space-between;
 padding:10px;
 border-bottom:1px solid #eee;
-font-size:14px;
-}
-
-.entry:last-child{
-border-bottom:none;
 }
 
 </style>
@@ -87,11 +74,11 @@ border-bottom:none;
 <div class="card">
 
 <div class="total">
-Total KM: <b><span id="total">0</span></b>
+Total KM: <span id="total">0</span>
 </div>
 
 <div class="total">
-Monthly KM: <b><span id="monthly">0</span></b>
+Monthly KM: <span id="monthly">0</span>
 </div>
 
 </div>
@@ -120,15 +107,21 @@ Monthly KM: <b><span id="monthly">0</span></b>
 
 <script>
 
-const API = "https://script.google.com/macros/s/AKfycbw_hMU8GDj0EmRXwVgOlcY8xkwboIlykxYAyKOyKODvjOlwxJCzXKVnHS7sXTO71tZZbA/exec";
+const API = "YOUR_SCRIPT_URL";
 
 document.getElementById("date").valueAsDate = new Date();
 
 function loadData(){
 
-fetch(API)
-.then(res => res.json())
-.then(data => {
+let script = document.createElement("script");
+
+script.src = API + "?callback=handleData";
+
+document.body.appendChild(script);
+
+}
+
+function handleData(data){
 
 document.getElementById("total").innerText = data.total;
 
@@ -149,8 +142,6 @@ html += `
 
 document.getElementById("list").innerHTML = html;
 
-});
-
 }
 
 function addEntry(){
@@ -158,20 +149,15 @@ function addEntry(){
 let date = document.getElementById("date").value;
 let km = document.getElementById("km").value;
 
-if(km == "") return;
+if(km=="") return;
 
-fetch(API + "?date=" + date + "&km=" + km)
-.then(()=>{
+let script = document.createElement("script");
+
+script.src = API + "?date=" + date + "&km=" + km + "&callback=loadData";
+
+document.body.appendChild(script);
+
 document.getElementById("km").value="";
-loadData();
-});
-
-}
-
-.then(()=>{
-document.getElementById("km").value="";
-loadData();
-});
 
 }
 
@@ -180,6 +166,4 @@ loadData();
 </script>
 
 </body>
-
-
 </html>
