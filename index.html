@@ -114,13 +114,7 @@ document.getElementById("date").valueAsDate = new Date();
 function loadData(){
 
 let script = document.createElement("script");
-
 script.src = API + "?callback=handleData";
-
-script.onload = function(){
-this.remove();
-};
-
 document.body.appendChild(script);
 
 }
@@ -128,7 +122,6 @@ document.body.appendChild(script);
 function handleData(data){
 
 document.getElementById("total").innerText = data.total;
-
 document.getElementById("monthly").innerText = data.monthlyTotal;
 
 let html="";
@@ -156,12 +149,7 @@ let km = document.getElementById("km").value;
 if(km=="") return;
 
 let script = document.createElement("script");
-
 script.src = API + "?date=" + date + "&km=" + km + "&callback=loadData";
-
-script.onload = function(){
-this.remove();
-};
 
 document.body.appendChild(script);
 
