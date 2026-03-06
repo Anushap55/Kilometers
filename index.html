@@ -107,21 +107,26 @@ Monthly KM: <span id="monthly">0</span>
 
 <script>
 
-const API = "https://script.google.com/macros/s/AKfycbzkbf4dfhdMRebq1GT70N0qjSGucDY2X4Bc0zkg7lGoqM_xKSkKxnl80rxn2Gaab-nc5Q/exec";
+const API = "YOUR_SCRIPT_URL";
 
 document.getElementById("date").valueAsDate = new Date();
+
 
 function loadData(){
 
 let script = document.createElement("script");
+
 script.src = API + "?callback=handleData";
+
 document.body.appendChild(script);
 
 }
 
+
 function handleData(data){
 
 document.getElementById("total").innerText = data.total;
+
 document.getElementById("monthly").innerText = data.monthlyTotal;
 
 let html="";
@@ -141,15 +146,18 @@ document.getElementById("list").innerHTML = html;
 
 }
 
+
 function addEntry(){
 
 let date = document.getElementById("date").value;
+
 let km = document.getElementById("km").value;
 
 if(km=="") return;
 
 let script = document.createElement("script");
-script.src = API + "?date=" + date + "&km=" + km + "&callback=loadData";
+
+script.src = API + "?date=" + date + "&km=" + km + "&callback=afterAdd";
 
 document.body.appendChild(script);
 
@@ -157,10 +165,17 @@ document.getElementById("km").value="";
 
 }
 
+
+function afterAdd(){
+
+loadData();
+
+}
+
+
 loadData();
 
 </script>
 
 </body>
 </html>
-
