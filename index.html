@@ -159,14 +159,14 @@ let date = document.getElementById("date").value;
 let km = document.getElementById("km").value;
 
 if(km == "") return;
-fetch(API,{
-method:"POST",
-mode:"no-cors",
-body:JSON.stringify({
-date:date,
-km:km
-})
-})
+
+fetch(API + "?date=" + date + "&km=" + km)
+.then(()=>{
+document.getElementById("km").value="";
+loadData();
+});
+
+}
 
 .then(()=>{
 document.getElementById("km").value="";
@@ -180,5 +180,6 @@ loadData();
 </script>
 
 </body>
+
 
 </html>
