@@ -40,11 +40,34 @@ gap:8px;
 align-items:center;
 }
 
-.input-row input{
-flex:1;
-padding:10px;
+.input-row{
+display:flex;
+gap:6px;
+align-items:center;
+}
+
+#date{
+width:140px;
+padding:8px;
 border:1px solid #ddd;
 border-radius:6px;
+}
+
+#km{
+width:70px;
+padding:8px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+.input-row button{
+width:60px;
+padding:8px;
+background:#2c7a7b;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
 }
 
 .input-row button{
@@ -64,7 +87,7 @@ border-bottom:1px solid #eee;
 }
 .subtitle{
 text-align:center;
-font-size:10px;
+font-size:12px;
 color:#666;
 margin-top:-10px;
 margin-bottom:15px;
@@ -196,6 +219,7 @@ loadData();
 
 </body>
 </html>
+
 
 
 
