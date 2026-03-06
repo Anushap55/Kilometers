@@ -77,10 +77,6 @@ border-bottom:1px solid #eee;
 Total KM: <span id="total">0</span>
 </div>
 
-<div class="total">
-Monthly KM: <span id="monthly">0</span>
-</div>
-
 </div>
 
 <div class="card">
@@ -112,6 +108,23 @@ const API = "YOUR_SCRIPT_URL";
 document.getElementById("date").valueAsDate = new Date();
 
 
+function formatDate(dateString){
+
+let d = new Date(dateString);
+
+let day = String(d.getDate()).padStart(2,'0');
+
+let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+let month = months[d.getMonth()];
+
+let year = d.getFullYear();
+
+return day + "-" + month + "-" + year;
+
+}
+
+
 function loadData(){
 
 let script = document.createElement("script");
@@ -127,15 +140,13 @@ function handleData(data){
 
 document.getElementById("total").innerText = data.total;
 
-document.getElementById("monthly").innerText = data.monthlyTotal;
-
 let html="";
 
 data.entries.reverse().forEach(e=>{
 
 html += `
 <div class="entry">
-<span>${e.date}</span>
+<span>${formatDate(e.date)}</span>
 <span>${e.km} km</span>
 </div>
 `;
