@@ -117,6 +117,10 @@ let script = document.createElement("script");
 
 script.src = API + "?callback=handleData";
 
+script.onload = function(){
+this.remove();
+};
+
 document.body.appendChild(script);
 
 }
@@ -155,6 +159,10 @@ let script = document.createElement("script");
 
 script.src = API + "?date=" + date + "&km=" + km + "&callback=loadData";
 
+script.onload = function(){
+this.remove();
+};
+
 document.body.appendChild(script);
 
 document.getElementById("km").value="";
@@ -167,4 +175,3 @@ loadData();
 
 </body>
 </html>
-
